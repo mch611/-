@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link rel="stylesheet" href="calculator1.css"/>
+<script type="text/javascript">
+    var results="";
+    var calresults="";
+    var last="";
+    var re1=/^[\*|\/].+/;
+    var re2=/.+[\*|\/|\+|\-]$/;
+    var re3=/(\+|-|\*|\/)/;
+    function calculater () {
+        if (event.srcElement.innerText=="=") {
+            return;
+        }
+        if (event.srcElement.innerText=="C") {
+            results="";
+            display.innerText="0";
+            return;
+        }
+        if (event.srcElement.id=="display") {
+           return;
+         }
+        if(last.match(re3)&&event.srcElement.innerText.match(re3)){
+            return;
+        }
+        if(last=="="&&event.srcElement.innerText.match(re3)){
+           results=calresults;
+        }
+        
+       results+=event.srcElement.innerText;
+       last=event.srcElement.innerText;
+       display.innerText=results;
+          }
+    function result(){
+       if (results.match(re1)||results.match(re2)) {
+       display.innerText="NULL";
+       results="";
+       return;
+      }
+      
+       calresults=eval(results);
+       display.innerText=calresults;
+       last="=";
+       results="";
+    }
+</script>
+</head>
+
+<body>
+<table id="calculater" onClick="calculater()">
+        <tr>
+            <td id="display" colspan="5">0</td>
+        </tr>
+        <tr>
+            <td class="key" >1</td>
+            <td class="key" >2</td>
+            <td class="key" >3</td>
+           <td class="key" id="delete">C</td>
+            <td rowspan="5" id="equal" onclick="result()" class="key">=</td>      
+        </tr>
+        <tr>
+            <td class="key" >4</td>
+            <td class="key" >5</td>
+            <td class="key" >6</td>
+            <td class="key" >+</td>
+        </tr>
+        <tr>
+            <td class="key" >7</td>
+            <td class="key" >8</td>
+            <td class="key" >9</td>
+            <td class="key" >-</td>
+        </tr>
+        <tr >
+            <td class="key" >0</td>
+            <td class="key" >.</td>
+            <td class="key" >*</td>
+            <td class="key" >/</td>            
+        </tr>
+</table>
+</body>
+</html>
